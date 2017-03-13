@@ -198,6 +198,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
                     L.t(getApplicationContext(), "Số lượng là một con số");
                 }
             }
+            //sad
             if(mShowWhenClicked.equals("Đến giỏ hàng")){
                 startActivity(new Intent(AddToCartDetailActivity.this, CartItemActivity.class));
                 finish();
