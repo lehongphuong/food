@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_margin_top">48dp</dimen>
+    <dimen name="drawer_padding_top">24dp</dimen>
+
+    <dimen name="wImageSP">100dp</dimen>
+    <dimen name="hImageSP">100dp</dimen>
+</resources>

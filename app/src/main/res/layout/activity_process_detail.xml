@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_order_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="xmart.com.xmart_android.activity.user.order.OrderDetail">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Tên shop"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ten_shop"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Trạng thái"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/trang_thai"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Ngày tạo"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ngay_tao"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Ngày xữ lý"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ngay_xu_ly"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Ngày hũy"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ngay_huy"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Ngày hoàn thành"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ngay_hoan_thanh"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Tổng tiền"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tong_tien"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:padding="20dip"
+                    android:text="Tên sản phẩm"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/ten_san_pham"
+                    android:layout_weight="2"
+                    android:padding="20dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
+
+            </TableRow>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/action_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:elevation="7dp"
+                android:focusable="true"
+                app:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/ic_action_navigation_arrow_back"
+                android:state_pressed="true" />
+
+
+        </TableLayout>
+    </ScrollView>
+
+</RelativeLayout>

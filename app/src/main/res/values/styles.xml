@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.base">
+
+        <!--<item name="alertDialogProTheme">@style/AppTheme.FlavoredMaterialLight</item>-->
+        <item name="alertDialogProTheme">@style/Theme.AlertDialogPro.Material.Light</item>
+    </style>
+
+    <style name="AppTheme.base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+    <style name="MyCustomToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">#ffffff</item>
+        <item name="android:textColorSecondary">#000000</item>
+    </style>
+
+    <style name="AppTheme.FlavoredMaterialLight" parent="Theme.AlertDialogPro.Material.Light">
+        <item name="colorPrimary">#F44336</item>
+        <item name="colorPrimaryDark">#303F9F</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="android:windowTitleStyle">@style/AdpTitleStyle</item>
+        <item name="adpButtonBarNegativeButtonStyle">@style/AdpNormalButtonStyle</item>
+        <item name="adpButtonBarNeutralButtonStyle">@style/AdpNormalButtonStyle</item>
+    </style>
+
+    <style name="AdpTitleStyle" parent="DialogWindowTitle.AlertDialogPro.Material.Light">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AdpNormalButtonStyle" parent="Widget.AlertDialogPro.Material.Light.Button">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_lesson_game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Các cửa hàng gần nhất"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/sizeTitle" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_owner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/nameSP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Top sản phẩm bán chạy nhất"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/sizeTitle" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_home_best_seller"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="Các sản phẩm mới"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/sizeTitle" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_home_new"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -1,0 +1,112 @@
+<resources>
+    <string name="app_name">Android Xmart</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-4758969096925385/9265195750</string>
+    <string name="full_ad_unit_id">ca-app-pub-4758969096925385/9918317354</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <!--order context menu-->
+    <string name="delete">Delete</string>
+    <string name="detail">Detail</string>
+
+
+    <!--Name navigation drawwer-->
+    <string-array name="nav">
+        <item>All food</item>
+        <item>Sale</item>
+        <item>Not seen</item>
+        <item>Finish</item>
+        <item>Upgrage</item>
+        <item>Theme</item>
+        <item>Share to facebook</item>
+        <item>Setting</item>
+        <item>About</item>
+        <item>Exit</item>
+    </string-array>
+
+
+    <string-array name="tabs">
+        <item>All food</item>
+        <item>Sale</item>
+        <item>Categori 1</item>
+        <item>Categori 2</item>
+        <item>Categori 3</item>
+        <item>Categori 4</item>
+        <item>Categori 5</item>
+        <item>Categori 6</item>
+        <item>Categori 7</item>
+        <item>Categori 8</item>
+        <item>Categori 9</item>
+        <item>Categori 10</item>
+    </string-array>
+
+
+    <string-array name="tabOrser">
+        <item>Ordered</item>
+        <item>Processed</item>
+        <item>Cancelled</item>
+        <item>Completed</item>
+        <item>Đã đặt</item>
+        <item>Đã xữ lý</item>
+        <item>Đã hũy</item>
+        <item>Đã hoàn thành</item>
+    </string-array>
+
+    <string-array name="tabSub">
+        <item>Học phản xạ</item>
+        <item>Luyện tập</item>
+        <item>Chưa vào</item>
+        <item>Tự tạo</item>
+        <item>Doing</item>
+    </string-array>
+
+    <!--splash text-->
+    <string name="splash_text">Mamage Food</string>
+    <string name="splash_nice_to">Manage Flexible</string>
+    <!--welcome screen-->
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">Tiếp theo</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="start">Bắt đầu</string>
+
+    <string name="slide_1_title">Tiếng anh phản xạ</string>
+    <string name="slide_1_desc">Chào mừng bạn đến với chương trình học tiếng anh phản
+        xạ, sau khi kết thúc mỗi chủ đề, bạn sẻ phát âm chuẩn và thành phản ứng tự nhiên khi giao tiếp!</string>
+
+    <string name="slide_2_title">Đa dạng</string>
+    <string name="slide_2_desc">Với gần 100 chủ đề chọn lọc trong cuộc sống. Với hơn 1000
+        câu hỏi và trả lời thông dụng!</string>
+
+    <string name="slide_3_title">Kiên trì</string>
+    <string name="slide_3_desc">Mỗi ngày với một chủ đề, bạn cần 1 giờ để hoàn thành yêu cầu
+        của chủ đề. Và sẻ có phần luyện tập với trò chơi liên quan đi kèm chủ đề giúp tăng
+        khả năng tiếp thu và tạo hứng thú cho bạn!</string>
+
+    <string name="slide_4_title">Thành thạo</string>
+    <string name="slide_4_desc">Sau chỉ hơn 3 tháng kiên trì hoàn thành tất cả các chủ đề.
+        Bạn sẻ có khả năng giao tiếp như người BẢN XỨ!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+</resources>
+

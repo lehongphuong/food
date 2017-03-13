@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_information_user"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="10dp"
+    android:orientation="vertical"
+    tools:context="xmart.com.xmart_android.activity.user.main.CartItemActivity">
+
+    <include
+        android:id="@+id/app_bar_cart"
+        layout="@layout/app_bar_order" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+</LinearLayout>
+
+
+
+
+
+
