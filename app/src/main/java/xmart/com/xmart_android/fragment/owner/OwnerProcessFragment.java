@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.order.ProcessDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
-import xmart.com.xmart_android.activity.user.order.ProcessDetail;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerProcess;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
@@ -124,7 +124,7 @@ import xmart.com.xmart_android.service.NguoiDungService;
                 public void onClick(View view, int position) {
                     //update history when click
                     OrderOwner order = arrayList.get(position);
-                    Intent intent = new Intent(getContext(), ProcessDetail.class);
+                    Intent intent = new Intent(getContext(), ProcessDetailOwner.class);
                     intent.putExtra("order", order );
 
 

@@ -27,7 +27,7 @@ import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.logging.L;
 import xmart.com.xmart_android.service.NguoiDungService;
 
-public class OrderDetail extends AppCompatActivity {
+public class OrderDetailOwner extends AppCompatActivity {
 
     private NguoiDungService nguoiDungService;
 
@@ -53,7 +53,7 @@ public class OrderDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_order_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
         setTitle("Detail Order");

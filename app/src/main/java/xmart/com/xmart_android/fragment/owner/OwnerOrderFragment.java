@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.order.OrderDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
-import xmart.com.xmart_android.activity.user.order.OrderDetail;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerOrder;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
@@ -119,7 +119,7 @@ import static xmart.com.xmart_android.R.id.listSubjectHits;
                 public void onClick(View view, int position) {
                     //update history when click
                     OrderOwner order = arrayList.get(position);
-                    Intent intent = new Intent(getContext(), OrderDetail.class);
+                    Intent intent = new Intent(getContext(), OrderDetailOwner.class);
                     intent.putExtra("order", order);
 
                     startActivityForResult(intent, 1);

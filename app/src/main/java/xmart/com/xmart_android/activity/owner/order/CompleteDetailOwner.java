@@ -25,7 +25,7 @@ import xmart.com.xmart_android.logging.L;
 import xmart.com.xmart_android.service.NguoiDungService;
 
 
-public class ProcessDetail extends AppCompatActivity {
+public class CompleteDetailOwner extends AppCompatActivity {
 
     private NguoiDungService nguoiDungService;
 
@@ -47,14 +47,15 @@ public class ProcessDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_process_detail);
+        setContentView(R.layout.activity_complete_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Processed");
+        setTitle("Detail Competed");
         mapping();
 
         //lap du lieu tu ordered fragment
         final Intent intent=getIntent();
+
         final String orderId=intent.getStringExtra("orderId");
         String mTrangThai=intent.getStringExtra("trangThai");
         String mTenShop=intent.getStringExtra("tenShop");
@@ -143,7 +144,7 @@ public class ProcessDetail extends AppCompatActivity {
                 try {
                     //chuyen doi tuong thanh json string
                     object.put("Type", "1");
-                    object.put("Command", "userGetProcessed");
+                    object.put("Command", "userGetCompleted");
                     object.put("UserName", user);
                     object.put("Token", token);
                     object.put("UserId", userId);

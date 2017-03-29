@@ -25,7 +25,7 @@ import xmart.com.xmart_android.logging.L;
 import xmart.com.xmart_android.service.NguoiDungService;
 
 
-public class CancelDetail extends AppCompatActivity {
+public class ProcessDetailOwner extends AppCompatActivity {
 
     private NguoiDungService nguoiDungService;
 
@@ -47,10 +47,10 @@ public class CancelDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cancel_detail);
+        setContentView(R.layout.activity_process_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Cancel");
+        setTitle("Detail Processed");
         mapping();
 
         //lap du lieu tu ordered fragment
@@ -123,6 +123,7 @@ public class CancelDetail extends AppCompatActivity {
                                     ngayTao.setText(jsonObject1.getString("Added"));
 //                                    tongTien.setText(jsonObject1.getString("Amount"));
                                     tenSanPham.setText(jsonObject1.getString("ProductName"));
+
                                 }
 
                             }
@@ -142,7 +143,7 @@ public class CancelDetail extends AppCompatActivity {
                 try {
                     //chuyen doi tuong thanh json string
                     object.put("Type", "1");
-                    object.put("Command", "userGetItemsOfOrder");
+                    object.put("Command", "userGetProcessed");
                     object.put("UserName", user);
                     object.put("Token", token);
                     object.put("UserId", userId);

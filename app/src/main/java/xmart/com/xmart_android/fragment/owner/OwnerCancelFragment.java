@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.order.CancelDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
-import xmart.com.xmart_android.activity.user.order.CancelDetail;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerCancel;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
@@ -114,7 +114,7 @@ public class OwnerCancelFragment extends Fragment {
             public void onClick(View view, int position) {
                 //update history when click
                 OrderOwner order = arrayList.get(position);
-                Intent intent = new Intent(getContext(), CancelDetail.class);
+                Intent intent = new Intent(getContext(), CancelDetailOwner.class);
                 intent.putExtra("order", order);
 
 
