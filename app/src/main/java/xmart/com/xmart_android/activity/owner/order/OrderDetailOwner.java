@@ -1,15 +1,12 @@
 package xmart.com.xmart_android.activity.owner.order;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alertdialogpro.AlertDialogPro;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,8 +21,9 @@ import org.json.JSONObject;
 
 import xmart.com.xmart_android.R;
 import xmart.com.xmart_android.db.NguoiDung;
-import xmart.com.xmart_android.logging.L;
+import xmart.com.xmart_android.db.OrderOwner;
 import xmart.com.xmart_android.service.NguoiDungService;
+
 
 public class OrderDetailOwner extends AppCompatActivity {
 
@@ -33,21 +31,21 @@ public class OrderDetailOwner extends AppCompatActivity {
 
     private NguoiDung nguoiDung;
 
-    private TextView tenShop;
-    private TextView trangThai;
-    private TextView ngayTao;
-    private TextView ngayXuLy;
-    private TextView ngayHuy;
-    private TextView ngayHoanThanh;
-    private TextView tongTien;
-    private TextView tenSanPham;
+    private TextView customName;
+    private TextView phone;
+    private TextView gender;
+    private TextView homeAddress;
+    private TextView workAddress;
+    private TextView status;
+    private TextView ordered;
+    private TextView processed;
+    private TextView canceled;
+    private TextView completed;
+    private TextView total;
+    private TextView nameProduct;
     private FloatingActionButton back;
-    private FloatingActionButton delete;
 
-    private int ans = 0;
 
-    public Intent intent;
-    public String orderId;
 
 
     @Override
@@ -55,34 +53,30 @@ public class OrderDetailOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
-        nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Order");
+        nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
+        setTitle("Detail Cancel");
         mapping();
 
         //lap du lieu tu ordered fragment
-        intent = getIntent();
-        orderId = intent.getStringExtra("orderId");
-        String mTrangThai = intent.getStringExtra("trangThai");
-        String mTenShop = intent.getStringExtra("tenShop");
+        final Intent intent=getIntent();
+        OrderOwner owner= (OrderOwner) intent.getSerializableExtra("order");
+
 
         //set du lieu
-        tenShop.setText(mTenShop);
-        trangThai.setText(mTrangThai);
-        tongTien.setText(intent.getStringExtra("tongTien"));
-        ngayXuLy.setText(intent.getStringExtra("ngayXuLy"));
-        ngayHuy.setText(intent.getStringExtra("ngayHuy"));
-        ngayHoanThanh.setText(intent.getStringExtra("ngayHoanThanh"));
+        customName.setText(owner.getFirstName()+" "+owner.getLastName());
+        phone.setText(owner.getPhoneNumber());
+        gender.setText(owner.getGender()=="0"?"Female":"Male");
+        homeAddress.setText(owner.getHomeAddr());
+        workAddress.setText(owner.getWorkAddr());
+        status.setText(owner.getStatus());
+        ordered.setText(owner.getOrdered());
+        processed.setText(owner.getProcessed());
+        canceled.setText(owner.getCanceled());
+        completed.setText(owner.getCompleted());
+        total.setText(owner.getTotal());
 
 
-        getOrderItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), orderId);
-
-        final AlertDialogPro.Builder materialDialog = new AlertDialogPro.Builder(this);
-        materialDialog.setIcon(R.drawable.ic_cart).
-                setTitle("Thông báo").
-                setMessage("Bạn có muốn hủy đơn hàng...? ").
-                setPositiveButton("Hủy đơn hàng", new ButtonClickedListener("Đồng ý")).
-                setNegativeButton("Bỏ qua", new ButtonClickedListener("Bỏ qua"));
-
+        getOrderItem(nguoiDung.getUserName(),nguoiDung.getToken(),nguoiDung.getId().toString(),owner.getId());
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,67 +85,33 @@ public class OrderDetailOwner extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ans = 0;
-                materialDialog.show();
 
-            }
-        });
     }
 
-    private class ButtonClickedListener implements DialogInterface.OnClickListener {
-        private CharSequence mShowWhenClicked;
 
-        public ButtonClickedListener(CharSequence showWhenClicked) {
-            mShowWhenClicked = showWhenClicked;
-        }
 
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            if (mShowWhenClicked.equals("Đồng ý")) {
-                deleteOrder(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), orderId);
-                intent.putExtra("position", intent.getIntExtra("position", -1));
-                setResult(2, intent);
-                finish();
-                overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
-            }
-            if (mShowWhenClicked.equals("Đến giỏ hàng")) {
-
-            }
-            if (mShowWhenClicked.equals("camera")) {
-                //camere
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);//zero can be replaced with any action code
-            }
-            if (mShowWhenClicked.equals("photo")) {
-                //chon tu photo
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
-            }
-        }
-    }
 
     private void mapping() {
-        tenShop = (TextView) findViewById(R.id.ten_shop);
-        trangThai = (TextView) findViewById(R.id.trang_thai);
-        ngayTao = (TextView) findViewById(R.id.ngay_tao);
-        ngayXuLy = (TextView) findViewById(R.id.ngay_xu_ly);
-        ngayHuy = (TextView) findViewById(R.id.ngay_huy);
-        ngayHoanThanh = (TextView) findViewById(R.id.ngay_hoan_thanh);
-        tongTien = (TextView) findViewById(R.id.tong_tien);
-        tenSanPham = (TextView) findViewById(R.id.ten_san_pham);
-        back = (FloatingActionButton) findViewById(R.id.action_back);
-        delete = (FloatingActionButton) findViewById(R.id.action_delete);
+        customName= (TextView) findViewById(R.id.name_custom);
+        phone= (TextView) findViewById(R.id.phone);
+        gender= (TextView) findViewById(R.id.gender);
+        homeAddress= (TextView) findViewById(R.id.homeAddress);
+        workAddress= (TextView) findViewById(R.id.workAddress);
+        status= (TextView) findViewById(R.id.status);
+        ordered= (TextView) findViewById(R.id.order);
+        processed= (TextView) findViewById(R.id.process);
+        canceled= (TextView) findViewById(R.id.cancel);
+        completed= (TextView) findViewById(R.id.complete);
+        total= (TextView) findViewById(R.id.total);
+        nameProduct= (TextView) findViewById(R.id.name_product);
+        back= (FloatingActionButton) findViewById(R.id.action_back);
+
     }
 
-    public void deleteOrder(final String user, final String token, final String userId, final String orderId) {
+    public void getOrderItem(final String user, final String token, final  String ownerId, final String orderId) {
         // Instantiate the RequestQueue.
-        L.m("That bai" + userId);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://app.codew.net/api/orders.php";
+        String url = "http://xapp.codew.net/api/items.php";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -160,73 +120,21 @@ public class OrderDetailOwner extends AppCompatActivity {
                         // your response
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            L.m(response);
                             //kiem tra co loi khong
                             String errorLogic = jsonObject.getString("errorLogic");
                             String errorSQL = jsonObject.getString("errorSQL");
-                            L.m("kiem tra " + errorLogic + " " + errorSQL);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // error
-            }
-        }) {
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                JSONObject object = new JSONObject();
-                try {
-                    //chuyen doi tuong thanh json string
-                    object.put("Type", "1");
-                    object.put("Command", "userCancelOrdered");
-                    object.put("UserName", user);
-                    object.put("UserId", userId);
-                    object.put("Token", token);
-                    object.put("OrderId", orderId);
-                    object.put("Note", "Sai thông tin");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String json = object.toString();
-                return json.getBytes();
-            }
-        };
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
-
-    public void getOrderItem(final String user, final String token, final String userId, final String orderId) {
-        // Instantiate the RequestQueue.
-        L.m("That bai" + userId);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://app.codew.net/api/items.php";
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // your response
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            L.m(response);
-                            //kiem tra co loi khong
-                            String errorLogic = jsonObject.getString("errorLogic");
-                            String errorSQL = jsonObject.getString("errorSQL");
-                            L.m("kiem tra " + errorLogic + " " + errorSQL);
 
                             if (errorLogic.length() == 0) {
                                 //get array tu data jsonobject
 //                                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                    ngayTao.setText(jsonObject1.getString("Added"));
+                                JSONArray jsonArray=jsonObject.getJSONArray("data");
+                                JSONObject jsonObject1=jsonArray.getJSONObject(0);
+                                nameProduct.setText(jsonObject1.getString("ProductName"));
+                                for(int i=1;i<jsonArray.length();i++){
+                                    jsonObject1=jsonArray.getJSONObject(i);
 
-                                    tenSanPham.setText(jsonObject1.getString("ProductName"));
+                                    nameProduct.setText(nameProduct.getText()+System.getProperty ("line.separator")
+                                            +jsonObject1.getString("ProductName"));
 
                                 }
 
@@ -246,11 +154,11 @@ public class OrderDetailOwner extends AppCompatActivity {
                 JSONObject object = new JSONObject();
                 try {
                     //chuyen doi tuong thanh json string
-                    object.put("Type", "1");
-                    object.put("Command", "userGetItemsOfOrder");
+                    object.put("Type", "2");
+                    object.put("Command", "ownerGetItemsOfOrder");
                     object.put("UserName", user);
                     object.put("Token", token);
-                    object.put("UserId", userId);
+                    object.put("OwnerId", ownerId);
                     object.put("OrderId", orderId);
                 } catch (JSONException e) {
                     e.printStackTrace();

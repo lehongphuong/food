@@ -6,207 +6,280 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="xmart.com.xmart_android.activity.user.order.OrderDetail">
+    tools:context="xmart.com.xmart_android.activity.owner.order.CancelDetailOwner">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TableLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TableRow
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Tên shop"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/ten_shop"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Customer"
+                        android:textColor="#000000" />
 
-            </TableRow>
+                    <TextView
+                        android:id="@+id/name_custom"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </TableRow>
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Trạng thái"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/trang_thai"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Phone"
+                        android:textColor="#000000" />
 
-            </TableRow>
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
+                    <!--android:textColor="@color/fbutton_color_green_sea"-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </TableRow>
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Ngày tạo"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/ngay_tao"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Gender"
+                        android:textColor="#000000" />
 
-            </TableRow>
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
+                    <!--android:textColor="@color/fbutton_color_green_sea"-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </TableRow>
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Ngày xữ lý"
-                    android:textColor="#000000" />
 
-                <TextView
-                    android:id="@+id/ngay_xu_ly"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </TableRow>
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Status"
+                        android:textColor="#000000" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Ngày hũy"
-                    android:textColor="#000000" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/ngay_huy"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </TableRow>
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Ordered"
+                        android:textColor="#000000" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/order"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Ngày hoàn thành"
-                    android:textColor="#000000" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/ngay_hoan_thanh"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </TableRow>
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Processed"
+                        android:textColor="#000000" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/process"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Tổng tiền"
-                    android:textColor="#000000" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/tong_tien"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </TableRow>
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Canceled"
+                        android:textColor="#000000" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/cancel"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
 
-                <TextView
-                    android:layout_weight="1"
-                    android:padding="20dip"
-                    android:text="Tên sản phẩm"
-                    android:textColor="#000000" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/ten_san_pham"
-                    android:layout_weight="2"
-                    android:padding="20dip"
-                    android:text="Không xác định"
-                    android:textColor="#000000" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </TableRow>
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Completed"
+                        android:textColor="#000000" />
 
-            <TableRow
+                    <TextView
+                        android:id="@+id/complete"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Total money"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:padding="5dip"
+                        android:text="Name product"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/name_product"
+                        android:layout_weight="2"
+                        android:padding="5dip"
+                        android:text="Không xác định"
+                        android:textColor="#000000" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:orientation="horizontal">
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/action_back"
+                <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:layout_weight="1"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:elevation="7dp"
-                    android:focusable="true"
-                    app:backgroundTint="@color/colorPrimary"
-                    android:src="@drawable/ic_action_navigation_arrow_back"
-                    android:state_pressed="true" />
+                    android:padding="5dip"
+                    android:text="Home address"
+                    android:textColor="#000000" />
 
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/action_delete"
+                <TextView
+                    android:id="@+id/homeAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:layout_weight="2"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:elevation="7dp"
-                    android:focusable="true"
-                    app:backgroundTint="@color/sample_red"
-                    android:src="@drawable/ic_action_delete"
-                    android:state_pressed="true" />
+                    android:padding="5dip"
+                    android:text="Không xác định"
+                    android:textColor="#000001" />
 
-            </TableRow>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Work address"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/workAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip"
+                    android:text="Không xác định"
+                    android:textColor="#000000" />
 
 
-        </TableLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/action_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:elevation="7dp"
+                android:focusable="true"
+                android:src="@drawable/ic_action_navigation_arrow_back"
+                android:state_pressed="true"
+                app:backgroundTint="@color/colorPrimary" />
+        </LinearLayout>
+
+
+
     </ScrollView>
 
 </RelativeLayout>
