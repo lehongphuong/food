@@ -1,4 +1,4 @@
-package xmart.com.xmart_android.navigation;
+package xmart.com.xmart_android.navigation.user;
 
 /**
  * Created by LehongphuongCntt on 9/5/2016.

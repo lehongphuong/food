@@ -1,6 +1,5 @@
 package xmart.com.xmart_android.activity.user.main;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -126,10 +125,10 @@ public class InformationUserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_home) {
-            startActivity(new Intent(InformationUserActivity.this, MainActivity.class));
-            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
-        }
+//        if (id == R.id.action_home) {
+//            startActivity(new Intent(InformationUserActivity.this, MainActivity.class));
+//            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+//        }
 
         if (id == android.R.id.home) {
             finish();

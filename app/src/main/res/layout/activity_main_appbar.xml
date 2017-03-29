@@ -31,7 +31,7 @@
 
         <fragment
             android:id="@+id/fragment_navigation_drawbar"
-            android:name="xmart.com.xmart_android.navigation.NavigationDrawerFragment"
+            android:name="xmart.com.xmart_android.navigation.user.NavigationDrawerFragment"
             android:layout_width="@dimen/nav_draw_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"

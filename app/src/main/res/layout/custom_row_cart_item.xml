@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:layout_gravity="center"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/item_bg"
     android:clickable="true"
     android:orientation="horizontal">
@@ -77,13 +78,15 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+
+
+                    <com.gc.materialdesign.views.ButtonFloatSmall
                         android:id="@+id/remove"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/sample_yellow"
                         android:clickable="true"
-                        android:src="@drawable/ic_action_remove" />
+                        materialdesign:iconDrawable="@drawable/ic_action_remove" />
 
                     <TextView
                         android:id="@+id/quantity"
@@ -98,13 +101,14 @@
                         android:textColor="@color/textPriceOld"
                         android:textSize="@dimen/sizePriceOld" />
 
-                    <ImageView
+
+                    <com.gc.materialdesign.views.ButtonFloatSmall
                         android:id="@+id/add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@color/sample_blue"
                         android:clickable="true"
-                        android:background="@color/colorPrimary"
-                        android:src="@drawable/ic_action_add" />
+                        materialdesign:iconDrawable="@drawable/ic_action_add" />
 
                     <View
                         android:layout_width="0dp"
@@ -112,15 +116,15 @@
                         android:layout_weight="1"
                         />
 
-                    <ImageView
+
+
+                    <com.gc.materialdesign.views.ButtonFloatSmall
                         android:id="@+id/delete"
                         android:layout_width="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="@color/colorPrimary"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_action_delete" />
+                        android:background="@color/sample_red"
+                        android:clickable="true"
+                        materialdesign:iconDrawable="@drawable/ic_action_delete" />
 
 
                 </LinearLayout>

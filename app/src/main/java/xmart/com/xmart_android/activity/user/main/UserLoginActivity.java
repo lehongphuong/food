@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.db.Info;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.logging.L;
@@ -66,12 +67,11 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 idSpinnerSelect = i;
-//                L.t(getApplicationContext(),"asd "+i);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                L.t(getApplicationContext(), "not ");
+
             }
         });
 
@@ -103,16 +103,15 @@ public class UserLoginActivity extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="http://xmart.codew.net/";
-                Intent intent=new Intent(UserLoginActivity.this, WebViewActivity.class);
-                intent.putExtra("url",url);
+                String url = "http://xmart.codew.net/";
+                Intent intent = new Intent(UserLoginActivity.this, WebViewActivity.class);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
         });
 
 
     }
-
 
 
     /**
@@ -232,7 +231,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                 infoService.insert(info);
                                 //dang nhap thanh cong thi vao man hinh chinh
 
-                                Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(UserLoginActivity.this, OwnerMainActivity.class);
                                 startActivityForResult(intent, 1);
                                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             } else {

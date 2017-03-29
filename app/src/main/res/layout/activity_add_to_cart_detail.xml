@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_information_user"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -97,6 +97,23 @@
                             android:textSize="@dimen/sizeNameSP" />
                     </TableRow>
 
+                    <TableRow>
+
+                        <com.gc.materialdesign.views.ButtonFlat
+                            android:id="@+id/go_to_map"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Xem đường đi đến cửa hàng"
+                            android:textAlignment="center"
+                             />
+
+                    </TableRow>
+
                 </TableLayout>
 
                 <TableLayout
@@ -119,16 +136,17 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:layout_weight="2">
+                            android:layout_weight="2"
+                            android:gravity="center">
 
-                            <ImageView
+
+                            <com.gc.materialdesign.views.ButtonFloatSmall
                                 android:id="@+id/subQuantity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@color/colorPrimary"
+                                android:background="@color/sample_yellow"
                                 android:clickable="true"
-                                android:src="@drawable/ic_action_remove" />
+                                materialdesign:iconDrawable="@drawable/ic_action_remove" />
 
                             <EditText
                                 android:id="@+id/quantity"
@@ -143,19 +161,18 @@
                                 android:textColor="@color/textPriceOld"
                                 android:textSize="@dimen/sizePriceOld" />
 
-                            <ImageView
+                            <com.gc.materialdesign.views.ButtonFloatSmall
                                 android:id="@+id/addQuantity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@color/colorPrimary"
+                                android:background="@color/sample_blue"
                                 android:clickable="true"
-                                android:src="@drawable/ic_action_add" />
+                                materialdesign:iconDrawable="@drawable/ic_action_add" />
+
                         </LinearLayout>
                     </TableRow>
 
                 </TableLayout>
-
-
 
 
             </LinearLayout>

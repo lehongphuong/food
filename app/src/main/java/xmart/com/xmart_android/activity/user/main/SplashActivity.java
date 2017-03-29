@@ -3,6 +3,7 @@ package xmart.com.xmart_android.activity.user.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.view.Window;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +23,7 @@ import java.util.TimerTask;
 import java.util.logging.Handler;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.db.Categories;
 import xmart.com.xmart_android.db.Info;
 import xmart.com.xmart_android.logging.L;
@@ -51,6 +53,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        MultiDex.install(this);
         setContentView(R.layout.activity_splash);
         infoService = new InfoService(getApplicationContext());
 
@@ -59,6 +62,7 @@ public class SplashActivity extends Activity {
 
         getCategories();
         //check login
+
         if (!infoService.isEmpty()) {
             //other first login
             info = infoService.selectAllInfo().get(0);
@@ -94,7 +98,7 @@ public class SplashActivity extends Activity {
             }
             if (login == 2) {
                 //login to owner
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, OwnerMainActivity.class);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -174,9 +178,8 @@ public class SplashActivity extends Activity {
      */
     public void getCategories() {
         // Instantiate the RequestQueue.
-        L.m("bat dau get categorie ");
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://xapp.codew.net/api/categoriesView.php";
+        String url = "http://xapp.codew.net/api/mobileView.php";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -185,15 +188,11 @@ public class SplashActivity extends Activity {
                         // your response
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            L.m("1");
                             L.m(response);
-
                             //kiem tra co loi khong
                             String errorLogic = jsonObject.getString("errorLogic");
                             String errorSQL = jsonObject.getString("errorSQL");
-                            L.m("2");
                             categoriesService.deleteAll();
-                            L.m("3");
                             if ("null".equals(errorLogic)) {
                                 //get array tu data jsonobject
 //                                message.setText("Thanh Cong");
@@ -206,7 +205,6 @@ public class SplashActivity extends Activity {
                                     categories.setDesc(jsonObject1.getString("Desc"));
                                     categories.setImage(jsonObject1.getString("Image"));
                                     categoriesService.insert(categories);
-                                    L.m("phuong "+i);
                                 }
 
                             } else {
@@ -269,6 +267,7 @@ public class SplashActivity extends Activity {
                                 login = 2;
                             } else {
 //                                L.t(getApplicationContext(),errorLogic);
+
                                 login = 0;
                             }
                         } catch (JSONException e) {

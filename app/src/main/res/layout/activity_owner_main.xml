@@ -10,7 +10,8 @@
         android:id="@+id/manhinh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".activity.owner.main.OwnerMainActivity">
 
         <include
             android:id="@+id/app_bar"
@@ -29,8 +30,9 @@
             tools:context=".MainActivity"/>
     </LinearLayout>
     <fragment
+
         android:id="@+id/fragment_navigation_drawbar"
-        android:name="xmart.com.xmart_android.navigation.NavigationDrawerFragment"
+        android:name="xmart.com.xmart_android.navigation.owner.NavigationDrawerOwnerFragment"
         android:layout_width="@dimen/nav_draw_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

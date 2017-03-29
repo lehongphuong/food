@@ -21,13 +21,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alertdialogpro.AlertDialogPro;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -36,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.google.map.MapManage;
 import xmart.com.xmart_android.adapter.user.main.AdapterCartItem;
 import xmart.com.xmart_android.db.CartItem;
 import xmart.com.xmart_android.db.NguoiDung;
@@ -58,8 +66,9 @@ public class AddToCartDetailActivity extends AppCompatActivity {
     private Button pay;
     private Button addToCart;
 
-    private ImageView addQuantity;
-    private ImageView subQuantity;
+
+    private ButtonFloatSmall addQuantity;
+    private ButtonFloatSmall subQuantity;
 
     private ImageView imageViewProduct;
 
@@ -68,6 +77,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
     private TextView nameOwner;
     public String productId;
     private EditText quantity;
+    private ButtonFlat goToMap;
 
     private int badgeCount = 0;
     private int ans = 0;
@@ -96,11 +106,22 @@ public class AddToCartDetailActivity extends AppCompatActivity {
         String priceProduct = intent.getStringExtra("priceProduct");
         String nameOw = intent.getStringExtra("nameOwner");
         String imageProduct = intent.getStringExtra("imageProduct");
+        final String ownerId = intent.getStringExtra("ownerId");
 
         //settext
         nameSp.setText(nameProduct);
         priceSp.setText(priceProduct);
         nameOwner.setText(nameOw);
+
+        //go to map
+        goToMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                L.m("ownerId "+ownerId);
+                getLatLngOwner(ownerId);
+            }
+        });
+
 
         //get image from url
         String url = imageProduct.replace("../", "http://xapp.codew.net/");
@@ -112,7 +133,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
                 setTitle("Thông báo").
                 setMessage("Bạn muốn thêm sản phẩm vào giỏ hàng...? ").
                 setPositiveButton("Thêm vào giỏ hàng", new ButtonClickedListener("Đồng ý")).
-                setNegativeButton("Bỏ qua",  new ButtonClickedListener("Bỏ qua"));
+                setNegativeButton("Bỏ qua", new ButtonClickedListener("Bỏ qua"));
 
         goToCart = new AlertDialogPro.Builder(this);
         goToCart.setIcon(R.drawable.ic_cart).
@@ -120,7 +141,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
                 setMessage("Thêm vào giỏ hàng giỏ hàng thành công :)\n" +
                         " Bạn có muốn đến giỏ hàng ?").
                 setPositiveButton("Đến giỏ hàng", new ButtonClickedListener("Đến giỏ hàng")).
-                setNegativeButton("Bỏ qua",  new ButtonClickedListener("Bỏ qua"));
+                setNegativeButton("Bỏ qua", new ButtonClickedListener("Bỏ qua"));
 
         //pay click and add to order
         pay.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +210,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            if(mShowWhenClicked.equals("Đồng ý")){
+            if (mShowWhenClicked.equals("Đồng ý")) {
                 try {
                     Integer quan = Integer.parseInt(quantity.getText().toString());
                     addProductToCart(productId, nguoiDung.getId().toString(), quan.toString());
@@ -199,17 +220,17 @@ public class AddToCartDetailActivity extends AppCompatActivity {
                 }
             }
             //sad
-            if(mShowWhenClicked.equals("Đến giỏ hàng")){
+            if (mShowWhenClicked.equals("Đến giỏ hàng")) {
                 startActivity(new Intent(AddToCartDetailActivity.this, CartItemActivity.class));
                 finish();
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
-            if(mShowWhenClicked.equals("camera")){
+            if (mShowWhenClicked.equals("camera")) {
                 //camere
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(takePicture, 0);//zero can be replaced with any action code
             }
-            if(mShowWhenClicked.equals("photo")){
+            if (mShowWhenClicked.equals("photo")) {
                 //chon tu photo
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -258,6 +279,77 @@ public class AddToCartDetailActivity extends AppCompatActivity {
 //        ((MainActivity)getApplicationContext()).updateBadge(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
 //
 //    }
+
+
+
+
+    public void getLatLngOwner(final String ownerId) {
+        // Instantiate the RequestQueue.
+//        L.m("bat dau get product new");
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://xapp.codew.net/api/mobileView.php";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            //kiem tra co loi khong
+                            L.m(response);
+                            String errorLogic = jsonObject.getString("errorLogic");
+                            String errorSQL = jsonObject.getString("errorSQL");
+                            if ("null".equals(errorLogic)) {
+                                //get array tu data jsonobject
+//                                message.setText("Thanh Cong");
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                                    Intent intent = new Intent(AddToCartDetailActivity.this, MapManage.class);
+                                    intent.putExtra("lat", jsonObject1.getString("AddrLatitude"));
+                                    intent.putExtra("lng", jsonObject1.getString("AddrLongitude"));
+
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                    break;
+                                }
+
+
+                            } else {
+//                                L.t(getApplicationContext(),errorLogic);
+//                                L.m("That bai");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject object = new JSONObject();
+                try {
+                    //chuyen doi tuong thanh json string
+                    object.put("Type", "1");
+                    object.put("Command", "getLatLngOwnerById");
+                    object.put("OwnerId", ownerId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String json = object.toString();
+                return json.getBytes();
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
 
     public void addProductToCart(final String productId, final String userId, final String quantity) {
         L.m("le hong phuong post");
@@ -335,8 +427,9 @@ public class AddToCartDetailActivity extends AppCompatActivity {
 
         pay = (Button) findViewById(R.id.go_to_cart);
         addToCart = (Button) findViewById(R.id.add_to_cart);
-        addQuantity = (ImageView) findViewById(R.id.addQuantity);
-        subQuantity = (ImageView) findViewById(R.id.subQuantity);
+        goToMap = (ButtonFlat) findViewById(R.id.go_to_map);
+        addQuantity = (ButtonFloatSmall) findViewById(R.id.addQuantity);
+        subQuantity = (ButtonFloatSmall) findViewById(R.id.subQuantity);
 
         nameSp = (TextView) findViewById(R.id.name_sp);
         priceSp = (TextView) findViewById(R.id.price_sp);

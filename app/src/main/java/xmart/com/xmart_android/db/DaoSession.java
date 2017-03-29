@@ -28,6 +28,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig categoriesDaoConfig;
     private final DaoConfig productNewDaoConfig;
     private final DaoConfig ownerDaoConfig;
+    private final DaoConfig orderOwnerDaoConfig;
 
     private final NguoiDungDao nguoiDungDao;
     private final OrderDao orderDao;
@@ -39,6 +40,7 @@ public class DaoSession extends AbstractDaoSession {
     private final CategoriesDao categoriesDao;
     private final ProductNewDao productNewDao;
     private final OwnerDao ownerDao;
+    private final OrderOwnerDao orderOwnerDao;
 
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
@@ -74,6 +76,9 @@ public class DaoSession extends AbstractDaoSession {
         ownerDaoConfig = daoConfigMap.get(OwnerDao.class).clone();
         ownerDaoConfig.initIdentityScope(type);
 
+        orderOwnerDaoConfig = daoConfigMap.get(OrderOwnerDao.class).clone();
+        orderOwnerDaoConfig.initIdentityScope(type);
+
         nguoiDungDao = new NguoiDungDao(nguoiDungDaoConfig, this);
         orderDao = new OrderDao(orderDaoConfig, this);
         processDao = new ProcessDao(processDaoConfig, this);
@@ -84,6 +89,7 @@ public class DaoSession extends AbstractDaoSession {
         categoriesDao = new CategoriesDao(categoriesDaoConfig, this);
         productNewDao = new ProductNewDao(productNewDaoConfig, this);
         ownerDao = new OwnerDao(ownerDaoConfig, this);
+        orderOwnerDao = new OrderOwnerDao(orderOwnerDaoConfig, this);
 
         registerDao(NguoiDung.class, nguoiDungDao);
         registerDao(Order.class, orderDao);
@@ -95,6 +101,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(Categories.class, categoriesDao);
         registerDao(ProductNew.class, productNewDao);
         registerDao(Owner.class, ownerDao);
+        registerDao(OrderOwner.class, orderOwnerDao);
     }
     
     public void clear() {
@@ -108,6 +115,7 @@ public class DaoSession extends AbstractDaoSession {
         categoriesDaoConfig.getIdentityScope().clear();
         productNewDaoConfig.getIdentityScope().clear();
         ownerDaoConfig.getIdentityScope().clear();
+        orderOwnerDaoConfig.getIdentityScope().clear();
     }
 
     public NguoiDungDao getNguoiDungDao() {
@@ -148,6 +156,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public OwnerDao getOwnerDao() {
         return ownerDao;
+    }
+
+    public OrderOwnerDao getOrderOwnerDao() {
+        return orderOwnerDao;
     }
 
 }

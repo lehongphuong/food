@@ -131,7 +131,7 @@ public class FragmentHome extends Fragment {
         adapterOwner = new AdapterOwner(getActivity());
         recyclerViewOnwer.setAdapter(adapterOwner);
         adapterOwner.setData(arrayListOwner);
-        L.m("get list owner "+ nguoiDung.getUserName()+nguoiDung.getHomeLatitude()+nguoiDung.getHomeLongitude());
+//        L.m("get list owner "+ nguoiDung.getUserName()+nguoiDung.getHomeLatitude()+nguoiDung.getHomeLongitude());
         getListOwner(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(),nguoiDung.getHomeLatitude(),nguoiDung.getHomeLongitude());
 
 
@@ -200,6 +200,7 @@ public class FragmentHome extends Fragment {
                 intent.putExtra("priceProduct", productNew.getPrice());
                 intent.putExtra("nameOwner", productNew.getOwnerId());
                 intent.putExtra("imageProduct", productNew.getImage());
+                intent.putExtra("ownerId", productNew.getOwnerId());
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -330,7 +331,6 @@ public class FragmentHome extends Fragment {
                             //kiem tra co loi khong
                             String errorLogic = jsonObject.getString("errorLogic");
                             String errorSQL = jsonObject.getString("errorSQL");
-                            L.m("adafsad "+errorLogic);
                             if ("null".equals(errorLogic)) {
                                 //get array tu data jsonobject
                                 JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -351,7 +351,6 @@ public class FragmentHome extends Fragment {
                                     owner.setAddress(jsonObject1.getString("Address"));
                                     owner.setAddrLatitude(jsonObject1.getString("AddrLatitude"));
                                     owner.setAddrLongitude(jsonObject1.getString("AddrLongitude"));
-                                    L.m("list owner ");
 
                                     arrayListOwner.add(owner);
                                     //gan gia tri de search

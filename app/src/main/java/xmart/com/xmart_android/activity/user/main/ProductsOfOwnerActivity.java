@@ -77,6 +77,7 @@ public class ProductsOfOwnerActivity extends AppCompatActivity {
                 intent.putExtra("priceProduct", productNew.getPrice());
                 intent.putExtra("nameOwner", productNew.getOwnerId());
                 intent.putExtra("imageProduct", productNew.getImage());
+                intent.putExtra("ownerId", productNew.getOwnerId());
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

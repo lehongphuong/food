@@ -108,7 +108,11 @@ public class FragmentProduct extends Fragment {
 
         if (!categoriesService.isEmpty()) {
             ArrayList<Categories> arrayList = categoriesService.selectAllCategories();
-            getProductByCategoriesId(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(),nguoiDung.getHomeLatitude(),nguoiDung.getHomeLongitude(),arrayList.get(page-1).getId());
+            try{
+                getProductByCategoriesId(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(),nguoiDung.getHomeLatitude(),nguoiDung.getHomeLongitude(),arrayList.get(page-1).getId());
+            }catch (Exception ex){
+
+            }
         }
 
         //tao cot va nhieu dong
@@ -138,6 +142,7 @@ public class FragmentProduct extends Fragment {
                 intent.putExtra("priceProduct", productNew.getPrice());
                 intent.putExtra("nameOwner", productNew.getOwnerId());
                 intent.putExtra("imageProduct", productNew.getImage());
+                intent.putExtra("ownerId", productNew.getOwnerId());
 
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gc.materialdesign.views.ButtonFloatSmall;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -184,9 +185,9 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
 
     class ViewHolderListSubject extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         ImageView image;
-        ImageView delete;
-        ImageView remove;
-        ImageView add;
+        ButtonFloatSmall delete;
+        ButtonFloatSmall remove;
+        ButtonFloatSmall add;
         TextView name;
         TextView owner;
         TextView price;
@@ -195,9 +196,9 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
         public ViewHolderListSubject(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.imageSP);
-            delete = (ImageView) itemView.findViewById(R.id.delete);
-            remove = (ImageView) itemView.findViewById(R.id.remove);
-            add = (ImageView) itemView.findViewById(R.id.add);
+            delete = (ButtonFloatSmall) itemView.findViewById(R.id.delete);
+            remove = (ButtonFloatSmall) itemView.findViewById(R.id.remove);
+            add = (ButtonFloatSmall) itemView.findViewById(R.id.add);
             name = (TextView) itemView.findViewById(R.id.nameSp1);
             owner = (TextView) itemView.findViewById(R.id.owner);
             price = (TextView) itemView.findViewById(R.id.priceSp);

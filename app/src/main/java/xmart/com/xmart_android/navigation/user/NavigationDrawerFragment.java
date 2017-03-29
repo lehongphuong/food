@@ -1,4 +1,4 @@
-package xmart.com.xmart_android.navigation;
+package xmart.com.xmart_android.navigation.user;
 
 
 import android.content.Context;

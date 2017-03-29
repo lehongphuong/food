@@ -45,7 +45,7 @@ import xmart.com.xmart_android.extral.SortListener;
 import xmart.com.xmart_android.fragment.user.main_fragment.FragmentHome;
 import xmart.com.xmart_android.fragment.user.main_fragment.FragmentProduct;
 import xmart.com.xmart_android.logging.L;
-import xmart.com.xmart_android.navigation.NavigationDrawerFragment;
+import xmart.com.xmart_android.navigation.user.NavigationDrawerFragment;
 import xmart.com.xmart_android.service.CategoriesService;
 import xmart.com.xmart_android.service.NguoiDungService;
 
