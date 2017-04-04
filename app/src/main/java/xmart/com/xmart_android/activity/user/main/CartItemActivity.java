@@ -1,7 +1,10 @@
 package xmart.com.xmart_android.activity.user.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alertdialogpro.AlertDialogPro;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,11 +57,14 @@ public class CartItemActivity extends AppCompatActivity {
 
     private int badgeCount = 0;
 
+    public AlertDialogPro.Builder goToOrder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_item);
+        MultiDex.install(this);
         setTitle("Cart item");
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
@@ -79,34 +86,75 @@ public class CartItemActivity extends AppCompatActivity {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
-        adapterCartItem = new AdapterCartItem(getApplicationContext());
+        adapterCartItem = new AdapterCartItem(CartItemActivity.this);
         recyclerView.setAdapter(adapterCartItem);
 
         adapterCartItem.setData(cartItems);
+
+        final AlertDialogPro.Builder addProductToOrder = new AlertDialogPro.Builder(this);
+        addProductToOrder.setIcon(R.drawable.ic_cart).
+                setTitle("Thông báo").
+                setMessage("Bạn chắc chắn đặt hàng với các sản phẩm này không...? ").
+                setPositiveButton("Bạn muốn Đặt hàng", new CartItemActivity.ButtonClickedListener("Đồng ý")).
+                setNegativeButton("Bỏ qua", new CartItemActivity.ButtonClickedListener("Bỏ qua"));
+
+        goToOrder = new AlertDialogPro.Builder(this);
+        goToOrder.setIcon(R.drawable.ic_cart).
+                setTitle("Thông báo").
+                setMessage("Thêm vào giỏ hàng giỏ hàng thành công :)\n" +
+                        " Bạn có muốn xem đơn đặt hàng  ?").
+                setPositiveButton("Xem đơn đặt hàng", new CartItemActivity.ButtonClickedListener("Xem đơn hàng")).
+                setNegativeButton("Bỏ qua", new CartItemActivity.ButtonClickedListener("Bỏ qua"));
+
 
         //pay click and add to order
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItemToOrder(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
-                L.T(getApplicationContext(), "Đã đặt hàng");
+                addProductToOrder.show();
             }
         });
 
         getCartItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
     }
 
-    public void updateTotal(int sum) {
-        total.setText(sum + " VND");
-        L.m("tong tien cua cart la " + sum);
+    private class ButtonClickedListener implements DialogInterface.OnClickListener {
+        private CharSequence mShowWhenClicked;
+
+        public ButtonClickedListener(CharSequence showWhenClicked) {
+            mShowWhenClicked = showWhenClicked;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (mShowWhenClicked.equals("Đồng ý")) {
+                addItemToOrder(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
+                goToOrder.show();
+            }
+            //sad
+            if (mShowWhenClicked.equals("Xem đơn hàng")) {
+                startActivity(new Intent(CartItemActivity.this, OrderFormActivity.class));
+                finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+            if (mShowWhenClicked.equals("camera")) {
+                //camere
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);//zero can be replaced with any action code
+            }
+            if (mShowWhenClicked.equals("photo")) {
+                //chon tu photo
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 1);//one can be replaced with any action code
+            }
+        }
     }
 
-    public void countTotal() {
-        int sum = 0;
-        for (CartItem item : cartItems) {
-            sum += Integer.parseInt(item.getQuantity()) * Integer.parseInt(item.getAmount());
-        }
-        total.setText(sum + " VND");
+
+    public void updateTotal(int temp) {
+      /*  int sum=Integer.parseInt(total.getText().toString());
+        total.setText((sum+temp) + " VND");*/
     }
 
 
@@ -142,7 +190,11 @@ public class CartItemActivity extends AppCompatActivity {
                                     cartItems.add(cartItem);
                                 }
                                 adapterCartItem.setData(cartItems);
-
+                                int sum=0;
+                                for (CartItem c:cartItems) {
+                                    sum+=Integer.parseInt(c.getQuantity())*Integer.parseInt(c.getPrice());
+                                }
+                                total.setText(sum+"");
 
                             } else {
                                 L.T(getApplicationContext(), "Có ai đó đăng nhập tài khoản của bạn..");

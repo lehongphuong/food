@@ -25,16 +25,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.activity.owner.order.OrderDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerOrder;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
+import xmart.com.xmart_android.logging.L;
 import xmart.com.xmart_android.service.NguoiDungService;
 
 import static xmart.com.xmart_android.R.id.listSubjectHits;
 
-    /**
+/**
      * Created by LehongphuongCntt on 2/25/2017.
      */
 
@@ -121,8 +123,9 @@ import static xmart.com.xmart_android.R.id.listSubjectHits;
                     OrderOwner order = arrayList.get(position);
                     Intent intent = new Intent(getContext(), OrderDetailOwner.class);
                     intent.putExtra("order", order);
-
+                    intent.putExtra("position", position);
                     startActivityForResult(intent, 1);
+
                     getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 }
 
@@ -133,6 +136,8 @@ import static xmart.com.xmart_android.R.id.listSubjectHits;
             }));
 
             getOrderItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
+
+
 
             return view;
         }
@@ -145,9 +150,11 @@ import static xmart.com.xmart_android.R.id.listSubjectHits;
                 if (i != -1) {
                     arrayList.remove(i);
                     adapterOrder.notifyDataSetChanged();
+
                 }
             }
         }
+
 
 
         public void getOrderItem(final String user, final String token, final String ownerId) {
@@ -197,7 +204,8 @@ import static xmart.com.xmart_android.R.id.listSubjectHits;
                                     adapterOrder.setData(arrayList);
 
                                 } else {
-                                    ((OrderFormActivity) getActivity()).login();
+                                    L.T(getContext(),"Có ai đó đăng nhập vào tài khoản của bạn...");
+                                    ((OwnerMainActivity) getActivity()).login();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

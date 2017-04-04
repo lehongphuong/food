@@ -25,11 +25,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.activity.owner.order.CompleteDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerComplete;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
+import xmart.com.xmart_android.logging.L;
 import xmart.com.xmart_android.service.NguoiDungService;
 
 
@@ -115,6 +117,7 @@ public class OwnerCompleteFragment extends Fragment {
                 OrderOwner order = arrayList.get(position);
                 Intent intent = new Intent(getContext(), CompleteDetailOwner.class);
                 intent.putExtra("order", order);
+                intent.putExtra("position", position);
 
 
                 startActivityForResult(intent, 1);
@@ -192,7 +195,8 @@ public class OwnerCompleteFragment extends Fragment {
                                 adapterComplete.setData(arrayList);
 
                             } else {
-                                ((OrderFormActivity) getActivity()).login();
+                                L.T(getContext(),"Có ai đó đăng nhập vào tài khoản của bạn...");
+                                ((OwnerMainActivity) getActivity()).login();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

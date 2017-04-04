@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,14 +44,14 @@ public class OrderDetail extends AppCompatActivity {
     private TextView ngayHoanThanh;
     private TextView tongTien;
     private TextView tenSanPham;
-    private FloatingActionButton back;
+
     private FloatingActionButton delete;
 
     private int ans = 0;
 
     public Intent intent;
     public String orderId;
-
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +59,11 @@ public class OrderDetail extends AppCompatActivity {
         setContentView(R.layout.activity_order_detail);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Order");
+        setTitle("Đơn hàng đã đặt");
         mapping();
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //lap du lieu tu ordered fragment
         intent = getIntent();
@@ -84,13 +90,6 @@ public class OrderDetail extends AppCompatActivity {
                 setNegativeButton("Bỏ qua", new ButtonClickedListener("Bỏ qua"));
 
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
-            }
-        });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +98,21 @@ public class OrderDetail extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class ButtonClickedListener implements DialogInterface.OnClickListener {
@@ -143,7 +157,6 @@ public class OrderDetail extends AppCompatActivity {
         ngayHoanThanh = (TextView) findViewById(R.id.ngay_hoan_thanh);
         tongTien = (TextView) findViewById(R.id.tong_tien);
         tenSanPham = (TextView) findViewById(R.id.ten_san_pham);
-        back = (FloatingActionButton) findViewById(R.id.action_back);
         delete = (FloatingActionButton) findViewById(R.id.action_delete);
     }
 

@@ -2,9 +2,10 @@ package xmart.com.xmart_android.activity.user.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -39,7 +40,7 @@ public class CompleteDetail extends AppCompatActivity {
     private TextView ngayHoanThanh;
     private TextView tongTien;
     private TextView tenSanPham;
-    private FloatingActionButton back;
+    private Toolbar toolbar;
 
 
 
@@ -50,8 +51,11 @@ public class CompleteDetail extends AppCompatActivity {
         setContentView(R.layout.activity_complete_detail);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Competed");
+        setTitle("Đơn hàng hoàn thành");
         mapping();
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //lap du lieu tu ordered fragment
         final Intent intent=getIntent();
@@ -71,16 +75,24 @@ public class CompleteDetail extends AppCompatActivity {
 
         getOrderItem(nguoiDung.getUserName(),nguoiDung.getToken(),nguoiDung.getId().toString(),orderId);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
-            }
-        });
+
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private void mapping() {
@@ -92,7 +104,6 @@ public class CompleteDetail extends AppCompatActivity {
         ngayHoanThanh= (TextView) findViewById(R.id.ngay_hoan_thanh);
         tongTien= (TextView) findViewById(R.id.tong_tien);
         tenSanPham= (TextView) findViewById(R.id.ten_san_pham);
-        back= (FloatingActionButton) findViewById(R.id.action_back);
 
     }
 

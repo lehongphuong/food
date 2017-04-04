@@ -2,8 +2,10 @@ package xmart.com.xmart_android.activity.owner.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gc.materialdesign.views.ButtonFlat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +26,7 @@ import xmart.com.xmart_android.R;
 import xmart.com.xmart_android.db.NguoiDung;
 import xmart.com.xmart_android.db.OrderOwner;
 import xmart.com.xmart_android.service.NguoiDungService;
+
 
 
 public class ProcessDetailOwner extends AppCompatActivity {
@@ -43,10 +47,12 @@ public class ProcessDetailOwner extends AppCompatActivity {
     private TextView completed;
     private TextView total;
     private TextView nameProduct;
-    private FloatingActionButton back;
+    private ButtonFlat process;
+    private ButtonFlat cancel;
+    private Toolbar toolbar;
 
-
-
+    private OrderOwner owner;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +60,16 @@ public class ProcessDetailOwner extends AppCompatActivity {
         setContentView(R.layout.activity_process_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
         nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Cancel");
+        setTitle("Đơn hàng xử lý");
         mapping();
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //lap du lieu tu ordered fragment
         final Intent intent=getIntent();
-        OrderOwner owner= (OrderOwner) intent.getSerializableExtra("order");
+        owner = (OrderOwner) intent.getSerializableExtra("order");
+        position = intent.getIntExtra("position", 0);
 
         //set du lieu
         customName.setText(owner.getFirstName()+" "+owner.getLastName());
@@ -77,17 +87,46 @@ public class ProcessDetailOwner extends AppCompatActivity {
 
         getOrderItem(nguoiDung.getUserName(),nguoiDung.getToken(),nguoiDung.getId().toString(),owner.getId());
 
-        back.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cancelOrder(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), owner.getId());
+                intent.putExtra("position", position);
+                setResult(2, intent);
                 finish();
                 overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
             }
         });
 
+        process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processCompleteOrder(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), owner.getId());
+                intent.putExtra("position", position);
+                setResult(2, intent);
+                finish();
+                overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+            }
+        });
+
+
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private void mapping() {
@@ -103,8 +142,107 @@ public class ProcessDetailOwner extends AppCompatActivity {
         completed= (TextView) findViewById(R.id.complete);
         total= (TextView) findViewById(R.id.total);
         nameProduct= (TextView) findViewById(R.id.name_product);
-        back= (FloatingActionButton) findViewById(R.id.action_back);
+        cancel= (ButtonFlat) findViewById(R.id.buttonCancel);
+        process = (ButtonFlat) findViewById(R.id.buttonProcess);
 
+    }
+
+
+    /**
+     * process order, pruduct will to the table Process
+     * @param user
+     * @param token
+     * @param ownerId
+     * @param orderId
+     */
+    public void cancelOrder(final String user, final String token, final String ownerId, final String orderId) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://xapp.codew.net/api/orders.php";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // your response
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject object = new JSONObject();
+                try {
+                    //chuyen doi tuong thanh json string
+                    object.put("Type", "2");
+                    object.put("Command", "ownerOrderProcessed");
+                    object.put("UserName", user);
+                    object.put("Token", token);
+                    object.put("OwnerId", ownerId);
+                    object.put("OrderId", orderId);
+                    object.put("Note", "Đơn hàng đã được dừng xử lý ...");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String json = object.toString();
+                return json.getBytes();
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+
+    /**
+     * process order, pruduct will to the table Process
+     * @param user
+     * @param token
+     * @param ownerId
+     * @param orderId
+     */
+    public void processCompleteOrder(final String user, final String token, final String ownerId, final String orderId) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://xapp.codew.net/api/orders.php";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // your response
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject object = new JSONObject();
+                try {
+                    //chuyen doi tuong thanh json string
+                    object.put("Type", "2");
+                    object.put("Command", "ownerCompleteProcessed");
+                    object.put("UserName", user);
+                    object.put("Token", token);
+                    object.put("OwnerId", ownerId);
+                    object.put("OrderId", orderId);
+                    object.put("Note", "Đơn hàng đã được hoàn thành ...");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String json = object.toString();
+                return json.getBytes();
+            }
+        };
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     public void getOrderItem(final String user, final String token, final  String ownerId, final String orderId) {

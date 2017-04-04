@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.activity.owner.order.ProcessDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerProcess;
@@ -102,6 +103,7 @@ import xmart.com.xmart_android.service.NguoiDungService;
             nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
 
 
+
             recyclerView = (RecyclerView) view.findViewById(R.id.listSubjectHits);
 
             registerForContextMenu(recyclerView);
@@ -126,6 +128,7 @@ import xmart.com.xmart_android.service.NguoiDungService;
                     OrderOwner order = arrayList.get(position);
                     Intent intent = new Intent(getContext(), ProcessDetailOwner.class);
                     intent.putExtra("order", order );
+                    intent.putExtra("position", position );
 
 
                     startActivityForResult(intent, 1);
@@ -203,7 +206,8 @@ import xmart.com.xmart_android.service.NguoiDungService;
                                         adapterProcess.setData(arrayList);
 
                                     } else {
-                                        ((OrderFormActivity) getActivity()).login();
+                                        L.T(getContext(),"Có ai đó đăng nhập vào tài khoản của bạn...");
+                                        ((OwnerMainActivity) getActivity()).login();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

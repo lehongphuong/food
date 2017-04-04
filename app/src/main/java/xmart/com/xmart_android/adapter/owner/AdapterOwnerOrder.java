@@ -63,6 +63,7 @@ public class AdapterOwnerOrder extends RecyclerView.Adapter<AdapterOwnerOrder.Vi
 
 
 
+
     //class set image
     class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;

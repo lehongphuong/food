@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import xmart.com.xmart_android.R;
+import xmart.com.xmart_android.activity.owner.main.OwnerMainActivity;
 import xmart.com.xmart_android.activity.owner.order.CancelDetailOwner;
 import xmart.com.xmart_android.activity.user.main.OrderFormActivity;
 import xmart.com.xmart_android.adapter.owner.AdapterOwnerCancel;
@@ -192,8 +193,10 @@ public class OwnerCancelFragment extends Fragment {
                                     adapterCancel.setData(arrayList);
 
                                 } else {
-                                    ((OrderFormActivity) getActivity()).login();
+                                    L.T(getContext(),"Có ai đó đăng nhập vào tài khoản của bạn...");
+                                    ((OwnerMainActivity) getActivity()).login();
                                 }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

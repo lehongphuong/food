@@ -2,9 +2,10 @@ package xmart.com.xmart_android.activity.owner.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -43,9 +44,7 @@ public class CancelDetailOwner extends AppCompatActivity {
     private TextView completed;
     private TextView total;
     private TextView nameProduct;
-    private FloatingActionButton back;
-
-
+    private Toolbar toolbar;
 
 
     @Override
@@ -53,19 +52,22 @@ public class CancelDetailOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cancel_detail_owner);
         nguoiDungService = new NguoiDungService(getApplicationContext());
-        nguoiDung=nguoiDungService.selectAllNguoiDung().get(0);
-        setTitle("Detail Cancel");
+        nguoiDung = nguoiDungService.selectAllNguoiDung().get(0);
+        setTitle("Đơn hàng hủy bỏ");
         mapping();
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //lap du lieu tu ordered fragment
-        final Intent intent=getIntent();
-        OrderOwner owner= (OrderOwner) intent.getSerializableExtra("order");
+        final Intent intent = getIntent();
+        OrderOwner owner = (OrderOwner) intent.getSerializableExtra("order");
 
 
         //set du lieu
-        customName.setText(owner.getFirstName()+" "+owner.getLastName());
+        customName.setText(owner.getFirstName() + " " + owner.getLastName());
         phone.setText(owner.getPhoneNumber());
-        gender.setText(owner.getGender()=="0"?"Female":"Male");
+        gender.setText(owner.getGender() == "0" ? "Female" : "Male");
         homeAddress.setText(owner.getHomeAddr());
         workAddress.setText(owner.getWorkAddr());
         status.setText(owner.getStatus());
@@ -76,39 +78,45 @@ public class CancelDetailOwner extends AppCompatActivity {
         total.setText(owner.getTotal());
 
 
-        getOrderItem(nguoiDung.getUserName(),nguoiDung.getToken(),nguoiDung.getId().toString(),owner.getId());
+        getOrderItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), owner.getId());
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
-            }
-        });
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private void mapping() {
-        customName= (TextView) findViewById(R.id.name_custom);
-        phone= (TextView) findViewById(R.id.phone);
-        gender= (TextView) findViewById(R.id.gender);
-        homeAddress= (TextView) findViewById(R.id.homeAddress);
-        workAddress= (TextView) findViewById(R.id.workAddress);
-        status= (TextView) findViewById(R.id.status);
-        ordered= (TextView) findViewById(R.id.order);
-        processed= (TextView) findViewById(R.id.process);
-        canceled= (TextView) findViewById(R.id.cancel);
-        completed= (TextView) findViewById(R.id.complete);
-        total= (TextView) findViewById(R.id.total);
-        nameProduct= (TextView) findViewById(R.id.name_product);
-        back= (FloatingActionButton) findViewById(R.id.action_back);
+        customName = (TextView) findViewById(R.id.name_custom);
+        phone = (TextView) findViewById(R.id.phone);
+        gender = (TextView) findViewById(R.id.gender);
+        homeAddress = (TextView) findViewById(R.id.homeAddress);
+        workAddress = (TextView) findViewById(R.id.workAddress);
+        status = (TextView) findViewById(R.id.status);
+        ordered = (TextView) findViewById(R.id.order);
+        processed = (TextView) findViewById(R.id.process);
+        canceled = (TextView) findViewById(R.id.cancel);
+        completed = (TextView) findViewById(R.id.complete);
+        total = (TextView) findViewById(R.id.total);
+        nameProduct = (TextView) findViewById(R.id.name_product);
+
 
     }
 
-    public void getOrderItem(final String user, final String token, final  String ownerId, final String orderId) {
+    public void getOrderItem(final String user, final String token, final String ownerId, final String orderId) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "http://xapp.codew.net/api/items.php";
@@ -127,14 +135,14 @@ public class CancelDetailOwner extends AppCompatActivity {
                             if (errorLogic.length() == 0) {
                                 //get array tu data jsonobject
 //                                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                                JSONArray jsonArray=jsonObject.getJSONArray("data");
-                                JSONObject jsonObject1=jsonArray.getJSONObject(0);
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(0);
                                 nameProduct.setText(jsonObject1.getString("ProductName"));
-                                for(int i=1;i<jsonArray.length();i++){
-                                  jsonObject1=jsonArray.getJSONObject(i);
+                                for (int i = 1; i < jsonArray.length(); i++) {
+                                    jsonObject1 = jsonArray.getJSONObject(i);
 
-                                    nameProduct.setText(nameProduct.getText()+System.getProperty ("line.separator")
-                                            +jsonObject1.getString("ProductName"));
+                                    nameProduct.setText(nameProduct.getText() + System.getProperty("line.separator")
+                                            + jsonObject1.getString("ProductName"));
 
                                 }
 

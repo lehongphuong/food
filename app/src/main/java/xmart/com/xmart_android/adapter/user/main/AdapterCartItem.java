@@ -1,6 +1,7 @@
 package xmart.com.xmart_android.adapter.user.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alertdialogpro.AlertDialogPro;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,8 +56,8 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
 
     private NguoiDungService nguoiDungService;
     private NguoiDung nguoiDung;
-    private String idProduct="";
-    private int sum=0;
+    private String idProduct = "";
+    private int sum = 0;
 
     public AdapterCartItem(Context context) {
         layoutInflater = LayoutInflater.from(context);
@@ -83,21 +85,15 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
         CartItem cartItem = cartItemArrayList.get(position);
 
         //get image from url
-        String url=cartItem.getImage().replace("../","http://xapp.codew.net/");
-        new  DownloadImageTask(holder.image).execute(url);
+        String url = cartItem.getImage().replace("../", "http://xapp.codew.net/");
+        new DownloadImageTask(holder.image).execute(url);
 
         holder.name.setText(cartItem.getProductName());
         holder.owner.setText(cartItem.getShopName());
         holder.price.setText(cartItem.getPrice() + " VND");
         holder.quantity.setText(cartItem.getQuantity());
-        Integer p=Integer.parseInt(cartItem.getPrice());
-        Integer q=Integer.parseInt(cartItem.getQuantity());
-        sum+=p*q;
-//        ((CartItemActivity)context).updateTotal(sum);
-//        L.m("tong tien cua cart la "+sum);
-//        setAnimation(holder.itemView, position);
-    }
 
+    }
 
 
     //class set image
@@ -126,6 +122,7 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
             }
             return mIcon11;
         }
+
         @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
@@ -183,6 +180,10 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
         holder.itemView.clearAnimation();
     }
 
+    public void updateTotal(int temp){
+//        ((CartItemActivity) context).updateTotal(temp);
+    }
+
     class ViewHolderListSubject extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         ImageView image;
         ButtonFloatSmall delete;
@@ -193,8 +194,12 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
         TextView price;
         TextView quantity;
 
+        public AlertDialogPro.Builder addProductToOrder;
+
         public ViewHolderListSubject(View itemView) {
             super(itemView);
+
+
             image = (ImageView) itemView.findViewById(R.id.imageSP);
             delete = (ButtonFloatSmall) itemView.findViewById(R.id.delete);
             remove = (ButtonFloatSmall) itemView.findViewById(R.id.remove);
@@ -211,15 +216,40 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
             add.setOnClickListener(this);
         }
 
+        private class ButtonClickedListener implements DialogInterface.OnClickListener {
+            private CharSequence mShowWhenClicked;
+
+            public ButtonClickedListener(CharSequence showWhenClicked) {
+                mShowWhenClicked = showWhenClicked;
+            }
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (mShowWhenClicked.equals("Đồng ý")) {
+
+                }
+            }
+        }
+
 
         @Override
         public void onClick(View view) {
             if (view.getId() == delete.getId()) {
                 //ham get adapterPosition chi get duoc mot mot lan dau tien thoi nha
+//                addProductToOrder = new AlertDialogPro.Builder(context);
+//                addProductToOrder.setIcon(R.drawable.ic_cart).
+//                        setTitle("Thông báo").
+//                        setMessage("Bạn chắc chắn đặt hàng với các sản phẩm này không...? ").
+//                        setPositiveButton("Bạn muốn Đặt hàng", new ViewHolderListSubject.ButtonClickedListener("Đồng ý")).
+//                        setNegativeButton("Bỏ qua", new ViewHolderListSubject.ButtonClickedListener("Bỏ qua")).show();
+
                 int position = getAdapterPosition();
-                idProduct=cartItemArrayList.get(position).getId();
+                CartItem item = cartItemArrayList.get(position);
+                idProduct = item.getId();
+                 updateTotal(-(Integer.parseInt(item.getQuantity()) * Integer.parseInt(item.getPrice())));
                 deleteItem(position);
                 deleteItemInCart(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), position);
+
             } else {
                 //remove click
                 if (view.getId() == remove.getId()) {
@@ -227,6 +257,9 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
 //                    L.t(view.getContext(), "remove click " + String.valueOf(getAdapterPosition() + " " + ans));
                     if (ans > 0) {
                         int position = getAdapterPosition();
+                        CartItem item = cartItemArrayList.get(position);
+                        idProduct = item.getId();
+                        updateTotal(-(Integer.parseInt(item.getPrice())));
                         updateCartItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), String.valueOf(ans - 1), position);
                         quantity.setText("" + (ans - 1));
                     }
@@ -234,6 +267,11 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
                     //add click
                     if (view.getId() == add.getId()) {
                         int position = getAdapterPosition();
+                        CartItem item = cartItemArrayList.get(position);
+                        idProduct = item.getId();
+
+                       updateTotal((Integer.parseInt(item.getPrice())));
+
                         Integer ans = Integer.parseInt(quantity.getText().toString());
                         updateCartItem(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString(), String.valueOf(ans + 1), position);
                         quantity.setText("" + (ans + 1));
@@ -244,14 +282,17 @@ public class AdapterCartItem extends RecyclerView.Adapter<AdapterCartItem.ViewHo
                 }
             }
         }
+
         @Override
         public boolean onLongClick(View view) {
             return false;
         }
     }
 
-    public void updateBadge(){
-        ((MainActivity)context).updateBadge(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
+
+
+    public void updateBadge() {
+        ((MainActivity) context).updateBadge(nguoiDung.getUserName(), nguoiDung.getToken(), nguoiDung.getId().toString());
 
     }
 

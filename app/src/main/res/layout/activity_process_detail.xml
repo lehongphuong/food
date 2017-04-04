@@ -13,7 +13,12 @@
         android:layout_height="wrap_content">
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp">
+
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -167,20 +172,7 @@
 
             </TableRow>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/action_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:layout_weight="1"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:elevation="7dp"
-                android:focusable="true"
-                app:backgroundTint="@color/colorPrimary"
-                android:src="@drawable/ic_action_navigation_arrow_back"
-                android:state_pressed="true" />
+
 
 
         </TableLayout>

@@ -19,7 +19,11 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
+                <include
+                    android:id="@+id/app_bar"
+                    layout="@layout/app_bar" />
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -28,7 +32,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Customer"
+                        android:text="Khách hàng"
                         android:textColor="#000000" />
 
                     <TextView
@@ -47,7 +51,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Phone"
+                        android:text="Điện thoại"
                         android:textColor="#000000" />
 
                     <TextView
@@ -67,7 +71,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Gender"
+                        android:text="Giới tính"
                         android:textColor="#000000" />
 
                     <TextView
@@ -88,7 +92,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Status"
+                        android:text="Trạng thái"
                         android:textColor="#000000" />
 
                     <TextView
@@ -107,7 +111,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Ordered"
+                        android:text="Ngày đặt hàng"
                         android:textColor="#000000" />
 
                     <TextView
@@ -126,7 +130,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Processed"
+                        android:text="Ngày xử lý"
                         android:textColor="#000000" />
 
                     <TextView
@@ -145,7 +149,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Canceled"
+                        android:text="Ngày hủy bỏ"
                         android:textColor="#000000" />
 
                     <TextView
@@ -164,7 +168,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Completed"
+                        android:text="Ngày hoàn thành"
                         android:textColor="#000000" />
 
                     <TextView
@@ -183,7 +187,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Total money"
+                        android:text="Tổng tiền"
                         android:textColor="#000000" />
 
                     <TextView
@@ -202,7 +206,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="5dip"
-                        android:text="Name product"
+                        android:text="Các sản phẩm đặt"
                         android:textColor="#000000" />
 
                     <TextView
@@ -226,7 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Home address"
+                    android:text="Địa chỉ nhà"
                     android:textColor="#000000" />
 
                 <TextView
@@ -248,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
-                    android:text="Work address"
+                    android:text="Địa chỉ làm việc"
                     android:textColor="#000000" />
 
                 <TextView
@@ -262,25 +266,8 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/action_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:elevation="7dp"
-                android:focusable="true"
-                android:src="@drawable/ic_action_navigation_arrow_back"
-                android:state_pressed="true"
-                app:backgroundTint="@color/colorPrimary" />
+
         </LinearLayout>
-
-
-
-
 
 
     </ScrollView>

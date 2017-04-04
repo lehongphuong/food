@@ -59,7 +59,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
 
         anhXa();
-        userName.setText("bao");
+        userName.setText("owner2");
         password.setText("123456");
 
 

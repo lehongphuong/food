@@ -136,6 +136,7 @@ public class AddToCartDetailActivity extends AppCompatActivity {
                 setNegativeButton("Bỏ qua", new ButtonClickedListener("Bỏ qua"));
 
         goToCart = new AlertDialogPro.Builder(this);
+
         goToCart.setIcon(R.drawable.ic_cart).
                 setTitle("Thông báo").
                 setMessage("Thêm vào giỏ hàng giỏ hàng thành công :)\n" +

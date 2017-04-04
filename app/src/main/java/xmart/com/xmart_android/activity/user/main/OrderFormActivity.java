@@ -70,7 +70,7 @@ public class OrderFormActivity extends AppCompatActivity implements
 //        android:fitsSystemWindows="true"
         toolbar = (Toolbar) findViewById(R.id.app_bar_order);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mPager = (ViewPager) findViewById(R.id.pager_order);
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_order);
@@ -151,12 +151,17 @@ public class OrderFormActivity extends AppCompatActivity implements
         return true;
     }
 
+
     //xu ly su kien cho menu main
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_home) {
             //get id
+            finish();
+            overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
+        }
+        if (id == android.R.id.home) {
             finish();
             overridePendingTransition(R.anim.slide_top, R.anim.slide_bottom);
         }
